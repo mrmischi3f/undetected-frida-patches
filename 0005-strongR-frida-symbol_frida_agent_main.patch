@@ -20,7 +20,7 @@ diff --git a/src/agent-container.vala b/src/agent-container.vala
 index 33852c70..21320ac2 100644
 --- a/src/agent-container.vala
 +++ b/src/agent-container.vala
-@@ -20,7 +20,7 @@ namespace Frida {
+@@ -28,7 +28,7 @@ namespace Frida {
  			assert (container.module != null);
  
  			void * main_func_symbol;
@@ -87,15 +87,16 @@ diff --git a/src/linux/linux-host-session.vala b/src/linux/linux-host-session.va
 index fa67e3fb..b935ce5d 100644
 --- a/src/linux/linux-host-session.vala
 +++ b/src/linux/linux-host-session.vala
-@@ -421,7 +421,7 @@ namespace Frida {
- 			var stream_request = Pipe.open (t.local_address, cancellable);
- 
- 			uint id;
--			string entrypoint = "frida_agent_main";
-+			string entrypoint = "main";
- 			string agent_parameters = make_agent_parameters (pid, t.remote_address, options);
- 			var linjector = injector as Linjector;
- #if HAVE_EMBEDDED_ASSETS
+@@ -427,7 +427,7 @@ namespace Frida {
+                protected override async Future<IOStream> perform_attach_to (uint pid, HashTable<string, Variant> options,
+                                Cancellable? cancellable, out Object? transport) throws Error, IOError {
+                        uint id;
+-                       string entrypoint = "frida_agent_main";
++                       string entrypoint = "main";
+                        string parameters = make_agent_parameters (pid, "", options);
+                        AgentFeatures features = CONTROL_CHANNEL;
+                        var linjector = (Linjector) injector;
+
 diff --git a/src/qnx/qnx-host-session.vala b/src/qnx/qnx-host-session.vala
 index 69f2995f..a4e59ab2 100644
 --- a/src/qnx/qnx-host-session.vala
